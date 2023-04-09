@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet_adoption_app/implementations/notifier.dart';
 import 'package:pet_adoption_app/utils/ui_utils/app_icons.dart';
 import 'package:pet_adoption_app/utils/ui_utils/colors.dart';
 import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
 import 'package:pet_adoption_app/utils/ui_utils/styles.dart';
 
-class SearchField extends StatelessWidget {
+class SearchField extends ConsumerWidget {
   const SearchField({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final provider = ref.read(appProvider);
     return Container(
       width: context.widthPx,
       padding: [4, 8].edgeInsets,
@@ -33,6 +36,7 @@ class SearchField extends StatelessWidget {
                 hintText: "Search",
               ),
               style: AppStyle().text.labelFont,
+              onChanged: (value) => provider.updateQuery(value),
             ),
           ),
         ],

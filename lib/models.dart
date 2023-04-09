@@ -1,10 +1,13 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:pet_adoption_app/utils/helper_utils/assets.dart';
 import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
 import 'package:pet_adoption_app/utils/helper_utils/functions.dart';
 
-part 'utils/helper_utils/data.dart';
+part 'data.dart';
+
+part 'models.g.dart';
 
 class Category {
   final String id;
@@ -62,6 +65,7 @@ class Pet {
   String get subtitle => category.name;
 }
 
+@JsonSerializable()
 class Adoption {
   final String petId;
   final DateTime adoptedTime;
@@ -70,6 +74,11 @@ class Adoption {
     required this.petId,
     required this.adoptedTime,
   });
+
+  factory Adoption.fromJson(Map<String, dynamic> json) =>
+      _$AdoptionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AdoptionToJson(this);
 }
 
 class TimelineEvent {

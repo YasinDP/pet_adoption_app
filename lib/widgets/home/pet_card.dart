@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet_adoption_app/implementations/notifier.dart';
 import 'package:pet_adoption_app/utils/ui_utils/colors.dart';
 import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
 
@@ -9,7 +11,7 @@ import 'package:pet_adoption_app/utils/ui_utils/styles.dart';
 import 'package:pet_adoption_app/widgets/common/app_image.dart';
 import 'package:pet_adoption_app/widgets/common/retry_image.dart';
 
-class PetCard extends StatelessWidget {
+class PetCard extends ConsumerWidget {
   const PetCard({
     super.key,
     required this.pet,
@@ -18,8 +20,9 @@ class PetCard extends StatelessWidget {
   final Pet pet;
 
   @override
-  Widget build(BuildContext context) {
-    final bool isAdopted = AdoptionImplementation.isAdopted(pet.id);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final provider = ref.watch(appProvider);
+    final bool isAdopted = provider.isAdopted(pet.id);
     final Color bgColor = isAdopted ? AppColors().body : pet.backgroundColor;
     return Container(
       margin: 12.bottomEdgeInsets,

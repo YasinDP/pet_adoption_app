@@ -4,6 +4,7 @@ import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
 import 'package:pet_adoption_app/models.dart';
 
 import 'package:pet_adoption_app/widgets/home/category_card.dart';
+import 'package:pet_adoption_app/widgets/home/category_list_view.dart';
 import 'package:pet_adoption_app/widgets/home/main_header.dart';
 import 'package:pet_adoption_app/widgets/home/pets_list_view.dart';
 import 'package:pet_adoption_app/widgets/home/search_field.dart';
@@ -30,20 +31,7 @@ class HomePage extends StatelessWidget {
                   .shake(duration: 500.ms)
                   .scaleX(delay: 500.ms),
               16.spacing,
-              SizedBox(
-                height: 90,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: Category.count,
-                  itemBuilder: (context, index) {
-                    Category category = Category.all[index];
-                    return CategoryCard(
-                      category: category,
-                      isSelected: index == 0,
-                    );
-                  },
-                ),
-              )
+              const CategoryListView()
                   .animate()
                   .fadeIn()
                   .move(delay: 300.ms, duration: 600.ms)

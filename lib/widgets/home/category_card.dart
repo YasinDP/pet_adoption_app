@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet_adoption_app/implementations/notifier.dart';
 import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
 import 'package:pet_adoption_app/models.dart';
 
 import 'package:pet_adoption_app/utils/ui_utils/styles.dart';
 
-class CategoryCard extends StatelessWidget {
+class CategoryCard extends ConsumerWidget {
   const CategoryCard({
     super.key,
     required this.category,
-    required this.isSelected,
   });
 
   final Category category;
-  final bool isSelected;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final provider = ref.watch(appProvider);
+    bool isSelected = provider.selectedCategory == category.id;
     return Container(
       margin: 20.rightEdgeInsets,
       child: InkWell(
-        onTap: () {},
+        onTap: () => provider.updateCategory(category.id),
         child: Column(
           children: [
             SizedBox(
