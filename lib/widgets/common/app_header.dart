@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:pet_adoption_app/theme/theme_manager.dart';
 import 'package:pet_adoption_app/utils/ui_utils/app_icons.dart';
 import 'package:pet_adoption_app/utils/ui_utils/colors.dart';
 import 'package:pet_adoption_app/utils/ui_utils/styles.dart';
 import 'package:pet_adoption_app/widgets/common/circle_buttons.dart';
 
-class AppHeader extends StatelessWidget {
+class AppHeader extends ConsumerWidget {
   const AppHeader({
     Key? key,
     this.title,
@@ -27,9 +29,14 @@ class AppHeader extends StatelessWidget {
   final Widget Function(BuildContext context)? trailing;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = ref.watch(themeProvider).isDark;
     return ColoredBox(
-      color: isTransparent ? Colors.transparent : AppColors().black,
+      color: isTransparent
+          ? Colors.transparent
+          : isDark
+              ? AppColors().black
+              : AppColors().accent1,
       child: SafeArea(
         bottom: false,
         child: SizedBox(

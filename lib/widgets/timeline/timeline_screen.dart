@@ -34,7 +34,7 @@ class _TimelineScreenState extends ConsumerState<TimelineScreen> {
           children: [
             AppHeader(
               title: "Adoption History",
-              isTransparent: !theme.isDark,
+              // isTransparent: !theme.isDark,
               trailing: (context) => InkWell(
                 onTap: () => provider.clearData(),
                 child: Icon(
