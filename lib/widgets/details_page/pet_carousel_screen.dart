@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_adoption_app/implementations/notifier.dart';
 import 'package:pet_adoption_app/theme/theme_manager.dart';
 import 'package:pet_adoption_app/utils/helper_utils/app_haptics.dart';
-import 'package:pet_adoption_app/utils/ui_utils/colors.dart';
 import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
 import 'package:pet_adoption_app/utils/helper_utils/functions.dart';
 import 'package:pet_adoption_app/models.dart';

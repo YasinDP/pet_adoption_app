@@ -6,7 +6,6 @@ import 'package:pet_adoption_app/implementations/notifier.dart';
 import 'package:pet_adoption_app/theme/theme_manager.dart';
 import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
 import 'package:pet_adoption_app/utils/ui_utils/buttons.dart';
-import 'package:pet_adoption_app/utils/ui_utils/colors.dart';
 import 'package:pet_adoption_app/models.dart';
 
 import 'package:pet_adoption_app/utils/ui_utils/styles.dart';

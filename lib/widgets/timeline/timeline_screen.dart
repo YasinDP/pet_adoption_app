@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:pet_adoption_app/implementations/notifier.dart';
 import 'package:pet_adoption_app/theme/theme_manager.dart';
-import 'package:pet_adoption_app/utils/ui_utils/colors.dart';
 import 'package:pet_adoption_app/utils/ui_utils/styles.dart';
 import 'package:pet_adoption_app/widgets/common/app_header.dart';
 import 'package:pet_adoption_app/widgets/timeline/scrolling_viewport.dart';

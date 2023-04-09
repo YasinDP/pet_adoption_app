@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_adoption_app/utils/helper_utils/app_haptics.dart';
 import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
-import 'package:pet_adoption_app/utils/ui_utils/colors.dart';
 import 'package:pet_adoption_app/widgets/common/app_header.dart';
 import 'package:pet_adoption_app/widgets/common/app_image.dart';
 

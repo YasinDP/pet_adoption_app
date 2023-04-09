@@ -41,41 +41,35 @@ class PetCard extends ConsumerWidget {
                 left: 0,
                 right: 0,
                 child: Container(
-                  // decoration: BoxDecoration(
-                  //   borderRadius: 22.borderRadius,
-                  //   color: Colors.white,
-                  // ),
-                  child: Container(
-                    padding: 16.edgeInsets,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      borderRadius: 22.borderRadius,
-                      color: bgColor.withOpacity(0.3),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          pet.name,
-                          style: AppStyle().text.h3.copyWith(
-                                color: isDark ? AppColors().white : bgColor,
-                              ),
-                        ),
-                        Text(
-                          pet.age,
-                          style: AppStyle().text.bodySmallBold.copyWith(
-                                color: theme.labelColor,
-                              ),
-                        ),
-                        4.spacing,
-                        Text(
-                          pet.price.formattedRupeeString,
-                          style: AppStyle().text.h4.copyWith(
-                                color: isDark ? AppColors().white : bgColor,
-                              ),
-                        ),
-                      ],
-                    ),
+                  padding: 16.edgeInsets,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    borderRadius: 22.borderRadius,
+                    color: bgColor.withOpacity(0.3),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        pet.name,
+                        style: AppStyle().text.h3.copyWith(
+                              color: isDark ? AppColors().white : bgColor,
+                            ),
+                      ),
+                      Text(
+                        pet.age,
+                        style: AppStyle().text.bodySmallBold.copyWith(
+                              color: theme.labelColor,
+                            ),
+                      ),
+                      4.spacing,
+                      Text(
+                        pet.price.formattedRupeeString,
+                        style: AppStyle().text.h4.copyWith(
+                              color: isDark ? AppColors().white : bgColor,
+                            ),
+                      ),
+                    ],
                   ),
                 ),
               ),
