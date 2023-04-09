@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_adoption_app/utils/helper_utils/page_routes.dart';
 import 'package:pet_adoption_app/utils/ui_utils/styles.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 Future<T?> showFullscreenDialogRoute<T>(BuildContext context, Widget child,
     {bool transparent = false}) async {
@@ -46,4 +48,14 @@ List<DateTime> getMonthsBetween({
 // Navigator function
 Route createRoute(Widget child) {
   return MyCustomRoute(builder: (context) => child);
+}
+
+Future showToast(String message, {bool shortToast = true}) async {
+  if (!kIsWeb) {
+    await Fluttertoast.cancel();
+  }
+  Fluttertoast.showToast(
+      msg: message,
+      toastLength:
+          shortToast && !kIsWeb ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
 }

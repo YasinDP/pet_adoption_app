@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:pet_adoption_app/implementations/notifier.dart';
+import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
 import 'package:pet_adoption_app/utils/ui_utils/buttons.dart';
 import 'package:pet_adoption_app/utils/ui_utils/colors.dart';
 import 'package:pet_adoption_app/models.dart';
@@ -9,8 +12,9 @@ import 'package:pet_adoption_app/utils/ui_utils/styles.dart';
 import 'package:pet_adoption_app/widgets/details_page/app_page_indicator.dart';
 import 'package:pet_adoption_app/widgets/details_page/pet_carousel_screen.dart';
 import 'package:pet_adoption_app/widgets/common/static_text_scale.dart';
+import 'package:pet_adoption_app/widgets/success_page/animated_ribbon.dart';
 
-class BottomTextContent extends StatelessWidget {
+class BottomTextContent extends ConsumerWidget {
   const BottomTextContent(
       {Key? key,
       required this.pet,
@@ -26,7 +30,9 @@ class BottomTextContent extends StatelessWidget {
   int get _currentPage => state.currentPage.value.round();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final provider = ref.watch(appProvider);
+    bool isAdopted = provider.isAdopted(pet.id);
     return Container(
       width: AppStyle().sizes.maxContentWidth2,
       height: height,
@@ -36,11 +42,9 @@ class BottomTextContent extends StatelessWidget {
       alignment: Alignment.center,
       child: Stack(
         children: [
-          /// Text
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              // Gap(AppStyle().insets.xl),
               Column(
                 children: [
                   IgnorePointer(
@@ -76,6 +80,16 @@ class BottomTextContent extends StatelessWidget {
                             style: AppStyle().text.body,
                             textAlign: TextAlign.center,
                           ),
+
+                          Gap(AppStyle().insets.xxs),
+                          Text(
+                            pet.price.formattedRupeeString,
+                            style: AppStyle().text.h2.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors().body,
+                                ),
+                            textAlign: TextAlign.center,
+                          ),
                         ],
                       ).animate(key: ValueKey(pet.id)).fadeIn(),
                     ),
@@ -90,11 +104,13 @@ class BottomTextContent extends StatelessWidget {
                 semanticPageTitle: "Pet Details",
               ),
               Gap(AppStyle().insets.md),
-              AppBtn.from(
-                text: "Adopt Me",
-                expand: true,
-                onPressed: state.handleAdoptTap,
-              ),
+              isAdopted
+                  ? const AnimatedRibbon("You have already adopted this pet")
+                  : AppBtn.from(
+                      text: "Adopt Me",
+                      expand: true,
+                      onPressed: state.handleAdoptTap,
+                    ),
               Gap(AppStyle().insets.lg),
             ],
           ),

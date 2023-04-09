@@ -20,17 +20,30 @@ class PetsListView extends ConsumerStatefulWidget {
 class _PetsListViewState extends ConsumerState<PetsListView> {
   final ScrollController _scrollController = ScrollController();
 
+  late bool init;
+
+  @override
+  void initState() {
+    init = true;
+    super.initState();
+  }
+
   @override
   void didChangeDependencies() {
     final provider = ref.watch(appProvider);
-    Future.delayed(
-      Duration.zero,
-      () => provider.search(),
-    );
+    if (init) {
+      Future.delayed(
+        Duration.zero,
+        () => provider.search(),
+      );
+      provider.fetchData();
+      init = false;
+    }
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
               _scrollController.position.maxScrollExtent &&
           !provider.refreshing &&
+          !provider.loading &&
           !provider.allLoaded) {
         updatePets();
       }
@@ -58,27 +71,40 @@ class _PetsListViewState extends ConsumerState<PetsListView> {
         Align(
           alignment: Alignment.centerRight,
           child: Text(
-            "Showing ${pets.length} of ${Pet.count} Pets",
+            "Showing ${pets.length} of ${provider.availablePets} Pets",
             style: AppStyle().text.smallLabelBold,
           ),
         ),
         16.spacing,
         Expanded(
-          child: pets.isEmpty
+          child: provider.refreshing
               ? const Center(
                   child: AppLoadingIndicator(),
                 )
-              : ListView.builder(
-                  controller: _scrollController,
-                  itemCount: Pet.count,
-                  itemBuilder: (context, index) {
-                    Pet pet = Pet.all[index];
-                    return PetCard(pet: pet);
-                  },
-                ),
+              : pets.isEmpty
+                  ? Column(
+                      children: [
+                        24.spacing,
+                        Padding(
+                          padding: 36.edgeInsets,
+                          child: Text(
+                            "No pets are available with selected filters. Pls try with a different category or search query.",
+                            textAlign: TextAlign.center,
+                            style: AppStyle().text.labelFont,
+                          ),
+                        ),
+                      ],
+                    )
+                  : ListView.builder(
+                      controller: _scrollController,
+                      itemCount: pets.length,
+                      itemBuilder: (context, index) => PetCard(
+                        pet: pets[index],
+                      ),
+                    ),
         ),
-        if (provider.refreshing && !provider.allLoaded)
-          const AppLoadingIndicator(),
+        if (provider.loading && !provider.allLoaded)
+          const Center(child: AppLoadingIndicator()),
       ],
     );
   }

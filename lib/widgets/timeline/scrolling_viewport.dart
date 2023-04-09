@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:extra_alignments/extra_alignments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet_adoption_app/implementations/notifier.dart';
 import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
 
 import 'package:pet_adoption_app/implementations/adoption_impl.dart';
@@ -14,7 +16,7 @@ import 'package:pet_adoption_app/widgets/timeline/scrolling_viewport_controller.
 import 'package:pet_adoption_app/widgets/timeline/timeline_section.dart';
 import 'package:pet_adoption_app/widgets/timeline/list_gradient.dart';
 
-class NewScrollingViewport extends StatefulWidget {
+class NewScrollingViewport extends ConsumerStatefulWidget {
   const NewScrollingViewport({
     Key? key,
     required this.scroller,
@@ -26,10 +28,11 @@ class NewScrollingViewport extends StatefulWidget {
   final ScrollController scroller;
 
   @override
-  State<NewScrollingViewport> createState() => NewScalingViewportState();
+  ConsumerState<NewScrollingViewport> createState() =>
+      NewScalingViewportState();
 }
 
-class NewScalingViewportState extends State<NewScrollingViewport> {
+class NewScalingViewportState extends ConsumerState<NewScrollingViewport> {
   late final ScrollingViewportController controller =
       ScrollingViewportController(this);
 
@@ -75,6 +78,7 @@ class NewScalingViewportState extends State<NewScrollingViewport> {
   }
 
   Widget _buildScrollingArea(BuildContext context) {
+    final provider = ref.watch(appProvider);
     List<TimelineEvent> timelineData = TimelineEvent.all;
     final gap = AppStyle().insets.xs;
 
@@ -98,8 +102,7 @@ class NewScalingViewportState extends State<NewScrollingViewport> {
                 width: width,
                 child: Column(
                   children: timelineData.asMap().entries.map((e) {
-                    List<Pet> adoptedPets =
-                        AdoptionImplementation.getAdoptedPetsInMonth(
+                    List<Pet> adoptedPets = provider.getAdoptedPetsInMonth(
                       e.value.month,
                     );
                     return Container(

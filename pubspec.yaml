@@ -46,6 +46,7 @@ dependencies:
   flutter_riverpod: ^2.3.4
   shared_preferences: ^2.1.0
   json_annotation: ^4.8.0
+  fluttertoast: ^8.2.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -60,6 +61,7 @@ dev_dependencies:
   
   json_serializable: ^6.6.1
   build_runner: ^2.3.3
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

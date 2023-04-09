@@ -6,6 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_adoption_app/implementations/adoption_impl.dart';
 import 'package:pet_adoption_app/models.dart';
+import 'package:pet_adoption_app/utils/helper_utils/functions.dart';
 
 final appProvider = ChangeNotifierProvider<AppNotifier>((ref) => AppNotifier());
 
@@ -19,13 +20,23 @@ class AppNotifier with ChangeNotifier {
     notifyListeners();
   }
 
-  void addData(Adoption adoption) {
-    AdoptionImplementation.addData(adoption);
+  void addData(String petId) {
+    AdoptionImplementation.addData(
+      Adoption(
+        petId: petId,
+        adoptedTime: DateTime.now(),
+      ),
+    );
     notifyListeners();
   }
 
-  void clearData() {
-    AdoptionImplementation.clearData();
+  void clearData() async {
+    if (userAdoptions.isEmpty) {
+      showToast("You havent made any adoptions yet to clear history");
+      return;
+    }
+    await AdoptionImplementation.clearData();
+    showToast("Adoption History has been cleared");
     notifyListeners();
   }
 
@@ -35,8 +46,10 @@ class AppNotifier with ChangeNotifier {
 
   // Search & Filter
   List<Pet> _displayedPets = Pet.all;
-  List<Pet> _paginatedPets = Pet.all;
+  List<Pet> _paginatedPets = [];
   List<Pet> get paginatedPets => _paginatedPets;
+
+  int get availablePets => _displayedPets.length;
 
   // search statuses
   bool _allLoaded = false;
@@ -44,6 +57,9 @@ class AppNotifier with ChangeNotifier {
 
   bool _refreshing = false;
   bool get refreshing => _refreshing;
+
+  bool _loading = false;
+  bool get loading => _loading;
 
   String _query = "";
   String _selectedCategory = "all";
@@ -54,7 +70,10 @@ class AppNotifier with ChangeNotifier {
     search();
   }
 
-  void updatePets() {
+  void updatePets() async {
+    _loading = true;
+    notifyListeners();
+    await Future.delayed(500.milliseconds);
     int start = _paginatedPets.length;
     int end = start + paginationLimit;
     List<Pet> newPets = _displayedPets.sublist(
@@ -62,16 +81,12 @@ class AppNotifier with ChangeNotifier {
       min(_displayedPets.length, end),
     );
     _paginatedPets.addAll(newPets);
+    if (newPets.length < paginationLimit) {
+      _allLoaded = true;
+    }
+    _loading = false;
     notifyListeners();
   }
-
-  // List<Pet> fetchPets({required int offset, required int limit}) {
-  //   int end = offset + limit;
-  //   return _displayedPets.sublist(
-  //     offset,
-  //     min(_displayedPets.length, end),
-  //   );
-  // }
 
   Timer? _debounce;
   int paginationLimit = 4;
@@ -89,23 +104,30 @@ class AppNotifier with ChangeNotifier {
     if (_debounce?.isActive ?? false) {
       _debounce!.cancel();
     }
-    _debounce = Timer(const Duration(milliseconds: 1000), () async {
-      _refreshing = true;
-      notifyListeners();
-      await Future.delayed(500.milliseconds);
-      String queryLower = _query.trim().toLowerCase();
-      _displayedPets = Pet.all.where(
-        (pet) {
-          bool matchingCategory = _selectedCategory == "all"
-              ? true
-              : pet.categoryId == _selectedCategory;
-          bool matchingPattern = pet.name.toLowerCase().contains(queryLower);
-          return matchingCategory && matchingPattern;
-        },
-      ).toList();
-      _paginatedPets = _displayedPets.take(paginationLimit).toList();
-      notifyListeners();
-    });
+    _refreshing = true;
+    _allLoaded = false;
+    notifyListeners();
+    await Future.delayed(500.milliseconds);
+    String queryLower = _query.trim().toLowerCase();
+    _displayedPets = Pet.all.where(
+      (pet) {
+        bool matchingCategory = _selectedCategory == "all"
+            ? true
+            : pet.categoryId == _selectedCategory;
+        bool matchingPattern = pet.name.toLowerCase().contains(queryLower);
+        return matchingCategory && matchingPattern;
+      },
+    ).toList();
+    _paginatedPets = _displayedPets.take(paginationLimit).toList();
+    _refreshing = false;
+    notifyListeners();
+  }
+
+  //
+
+  List<Pet> getAdoptedPetsInMonth(DateTime month) {
+    List<Pet> adoptedPets = AdoptionImplementation.getAdoptedPetsInMonth(month);
+    return adoptedPets;
   }
 
   void valueUpdate() => notifyListeners();

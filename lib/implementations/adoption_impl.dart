@@ -21,12 +21,13 @@ class AdoptionImplementation {
     updateData();
   }
 
-  static void clearData() {
+  static Future<void> clearData() async {
     _userAdoptions.clear();
-    updateData();
+    adoptionRepository.deleteData();
   }
 
   //
+
   static List<Pet> getAdoptedPetsInMonth(DateTime month) {
     List<Adoption> adoptions = _userAdoptions
         .where((e) =>

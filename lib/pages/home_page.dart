@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
-import 'package:pet_adoption_app/models.dart';
-
-import 'package:pet_adoption_app/widgets/home/category_card.dart';
 import 'package:pet_adoption_app/widgets/home/category_list_view.dart';
 import 'package:pet_adoption_app/widgets/home/main_header.dart';
 import 'package:pet_adoption_app/widgets/home/pets_list_view.dart';

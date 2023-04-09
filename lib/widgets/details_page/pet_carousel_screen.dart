@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet_adoption_app/implementations/notifier.dart';
 import 'package:pet_adoption_app/utils/helper_utils/app_haptics.dart';
 import 'package:pet_adoption_app/utils/ui_utils/colors.dart';
 import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
@@ -17,7 +19,7 @@ import 'package:pet_adoption_app/pages/adoption_success_page.dart';
 import 'package:pet_adoption_app/pages/image_viewer_page.dart';
 import 'package:pet_adoption_app/widgets/details_page/double_border_image.dart';
 
-class PetCarouselScreen extends StatefulWidget {
+class PetCarouselScreen extends ConsumerStatefulWidget {
   const PetCarouselScreen({
     Key? key,
     required this.pet,
@@ -26,10 +28,10 @@ class PetCarouselScreen extends StatefulWidget {
   final Pet pet;
 
   @override
-  State<PetCarouselScreen> createState() => PetDetailScreenState();
+  ConsumerState<PetCarouselScreen> createState() => PetDetailScreenState();
 }
 
-class PetDetailScreenState extends State<PetCarouselScreen> {
+class PetDetailScreenState extends ConsumerState<PetCarouselScreen> {
   PageController? pageController;
   final currentPage = ValueNotifier<double>(9999);
 
@@ -70,8 +72,8 @@ class PetDetailScreenState extends State<PetCarouselScreen> {
 
     // wait to update the state, to ensure the hero works properly:
     await Future.delayed(AppStyle().times.pageTransition);
-    // TODO: Save this pet as adopted
-    // collectiblesLogic.setState(collectible.id, CollectibleState.discovered);
+    final provider = ref.read(appProvider);
+    provider.addData(widget.pet.id);
   }
 
   void handleImageTap(int index) {

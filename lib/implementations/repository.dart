@@ -34,4 +34,9 @@ class Repository {
       return [];
     }
   }
+
+  void deleteData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
 }
