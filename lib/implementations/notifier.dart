@@ -57,10 +57,11 @@ class AppNotifier with ChangeNotifier {
   void updatePets() {
     int start = _paginatedPets.length;
     int end = start + paginationLimit;
-    _paginatedPets = _displayedPets.sublist(
+    List<Pet> newPets = _displayedPets.sublist(
       start,
       min(_displayedPets.length, end),
     );
+    _paginatedPets.addAll(newPets);
     notifyListeners();
   }
 

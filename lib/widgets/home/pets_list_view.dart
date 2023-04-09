@@ -25,7 +25,7 @@ class _PetsListViewState extends ConsumerState<PetsListView> {
     final provider = ref.watch(appProvider);
     Future.delayed(
       Duration.zero,
-      () => updatePets(),
+      () => provider.search(),
     );
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
