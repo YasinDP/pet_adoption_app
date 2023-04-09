@@ -60,7 +60,6 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
       body: SizedBox(
         height: context.heightPx,
         width: context.widthPx,
-        // color: AppColors().black,
         child: Stack(
           children: [
             Positioned.fill(child: content),
@@ -91,29 +90,23 @@ class _ViewerState extends State<_Viewer> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  /// Reset zoom level to 1 on double-tap
-  void _handleDoubleTap() => _controller.value = Matrix4.identity();
-
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onDoubleTap: _handleDoubleTap,
-      child: InteractiveViewer(
-        transformationController: _controller,
-        onInteractionEnd: (_) =>
-            widget.isZoomed.value = _controller.value.getMaxScaleOnAxis() > 1,
-        minScale: 1,
-        maxScale: 5,
-        child: Hero(
-          tag: widget.url,
-          child: AppImage(
-            image: NetworkImage(
-              widget.url,
-            ),
-            fit: BoxFit.contain,
-            scale: ImageViewerPage.imageScale,
-            progress: true,
+    return InteractiveViewer(
+      transformationController: _controller,
+      onInteractionEnd: (_) =>
+          widget.isZoomed.value = _controller.value.getMaxScaleOnAxis() > 1,
+      minScale: 1,
+      maxScale: 5,
+      child: Hero(
+        tag: widget.url,
+        child: AppImage(
+          image: NetworkImage(
+            widget.url,
           ),
+          fit: BoxFit.contain,
+          scale: ImageViewerPage.imageScale,
+          progress: true,
         ),
       ),
     );

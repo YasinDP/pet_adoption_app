@@ -97,7 +97,6 @@ class BottomTextContent extends ConsumerWidget {
                   ),
                 ],
               ),
-              // if (!shortMode) Gap(AppStyle().insets.sm),
               const Spacer(),
               AppPageIndicator(
                 count: state.images.length,

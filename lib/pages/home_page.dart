@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
               Expanded(
                 child: const PetsListView()
                     .animate()
-                    .fadeIn(duration: 600.ms) // baseline=800ms
+                    .fadeIn(duration: 600.ms)
                     .slideY(begin: 0.8),
               ),
             ],

@@ -35,12 +35,12 @@ class ScrollingViewportController extends ChangeNotifier {
     });
   }
 
-  /// Jump to the scroll position for a given yr. Does not animated.
-  void jumpToMonth(int yr, {bool animate = false}) {
-    double yrRatio =
-        (yr - startMonthPosition) / (endMonthPosition - startMonthPosition);
+  /// Jump to the scroll position for a given month. Does not animated.
+  void jumpToMonth(int month, {bool animate = false}) {
+    double monthRatio =
+        (month - startMonthPosition) / (endMonthPosition - startMonthPosition);
     double newMaxScroll = calculateContentHeight();
-    final newPos = newMaxScroll * yrRatio;
+    final newPos = newMaxScroll * monthRatio;
     if (animate) {
       scroller.animateTo(newPos,
           duration: AppStyle().times.med, curve: Curves.easeOut);

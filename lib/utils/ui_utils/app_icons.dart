@@ -32,23 +32,7 @@ class AppIcon extends StatelessWidget {
 
 enum AppIcons {
   close,
-  close_large,
-  collection,
-  download,
-  expand,
-  fullscreen,
-  fullscreen_exit,
-  info,
-  menu,
-  next_large,
-  north,
   prev,
-  reset_location,
   search,
-  share_android,
-  share_ios,
   timeline,
-  wallpaper,
-  zoom_in,
-  zoom_out
 }

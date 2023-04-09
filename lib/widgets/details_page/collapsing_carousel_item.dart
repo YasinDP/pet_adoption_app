@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_adoption_app/utils/ui_utils/buttons.dart';
 
-/// Handles the carousel specific logic, like setting the height and vertical alignment of each item.
-/// This lets the child simply render it's contents
 class CollapsingCarouselItem extends StatelessWidget {
   const CollapsingCarouselItem(
       {Key? key,

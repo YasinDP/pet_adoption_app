@@ -11,7 +11,6 @@ class PageRoutes {
       return CupertinoPageRoute(builder: (_) => child);
     }
 
-    // SB: Removed this in favor of Cupertino routes, we could restore with a `useFade` option
     return PageRouteBuilder<T>(
       transitionDuration: duration,
       reverseTransitionDuration: duration,
@@ -39,8 +38,6 @@ class MyCustomRoute<T> extends MaterialPageRoute<T> {
     Widget child,
   ) {
     if (settings.name == "/") return child;
-    // Fades between routes. (If you don't want any animation,
-    // just return child.)
     return FadeTransition(opacity: animation, child: child);
   }
 }

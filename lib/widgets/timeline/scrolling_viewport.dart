@@ -118,14 +118,12 @@ class NewScalingViewportState extends ConsumerState<NewScrollingViewport> {
                           Text(
                             e.value.month.monthAndYear,
                             style: AppStyle().text.body.copyWith(
-                                  // color: Colors.white,
                                   height: 1,
                                 ),
                           ),
                           const SizedBox(width: 20),
                           Expanded(
                             child: ListView.builder(
-                              // shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               itemCount: adoptedPets.length,
                               physics: const AlwaysScrollableScrollPhysics(),

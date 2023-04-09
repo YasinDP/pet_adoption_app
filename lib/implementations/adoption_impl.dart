@@ -39,7 +39,6 @@ class AdoptionImplementation {
   }
 
   static int getAdoptionCountFromMonth(DateTime month) {
-    // print("month ==> $month");
     return _userAdoptions
         .where((e) =>
             e.adoptedTime.month == month.month &&

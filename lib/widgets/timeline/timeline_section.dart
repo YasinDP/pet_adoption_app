@@ -20,7 +20,6 @@ class TimelineSection extends ConsumerWidget {
       child: IgnorePointer(
         ignoringSemantics: false,
         child: Container(
-          // alignment: Alignment(0, -1 + fraction * 2),
           padding: EdgeInsets.all(AppStyle().insets.xs),
           decoration: BoxDecoration(
               color: theme.fgColor, borderRadius: BorderRadius.circular(98)),

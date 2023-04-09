@@ -187,10 +187,8 @@ class AppBtn extends StatelessWidget {
   }
 }
 
-/// //////////////////////////////////////////////////
 /// _ButtonDecorator
 /// Add a transparency-based press effect to buttons.
-/// //////////////////////////////////////////////////
 class _ButtonPressEffect extends StatefulWidget {
   const _ButtonPressEffect(this.child, {Key? key}) : super(key: key);
   final Widget child;

@@ -29,9 +29,6 @@ class AppStyle {
 
   late final double scale;
 
-  /// The current theme colors for the app
-  // final AppColors colors = AppColors();
-
   late final AppShadows shadows = AppShadows();
 
   /// Padding and margin values
