@@ -88,22 +88,13 @@ class AppNotifier with ChangeNotifier {
     notifyListeners();
   }
 
-  Timer? _debounce;
   int paginationLimit = 4;
   void updateQuery(String query) {
-    if (_debounce?.isActive ?? false) {
-      _debounce!.cancel();
-    }
-    _debounce = Timer(const Duration(milliseconds: 1000), () {
-      _query = query;
-      search();
-    });
+    _query = query;
+    search();
   }
 
   void search() async {
-    if (_debounce?.isActive ?? false) {
-      _debounce!.cancel();
-    }
     _refreshing = true;
     _allLoaded = false;
     notifyListeners();

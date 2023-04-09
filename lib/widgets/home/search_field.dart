@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_adoption_app/implementations/notifier.dart';
@@ -7,14 +9,35 @@ import 'package:pet_adoption_app/utils/ui_utils/colors.dart';
 import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
 import 'package:pet_adoption_app/utils/ui_utils/styles.dart';
 
-class SearchField extends ConsumerWidget {
+class SearchField extends ConsumerStatefulWidget {
   const SearchField({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.read(appProvider);
+  ConsumerState<SearchField> createState() => _SearchFieldState();
+}
+
+class _SearchFieldState extends ConsumerState<SearchField> {
+  Timer? _debounce;
+  void onChanged(String query) {
+    if (_debounce?.isActive ?? false) {
+      _debounce!.cancel();
+    }
+    _debounce = Timer(const Duration(milliseconds: 1000), () {
+      final provider = ref.read(appProvider);
+      provider.updateQuery(query);
+    });
+  }
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final theme = ref.watch(themeProvider);
     return Container(
       width: context.widthPx,
@@ -27,7 +50,7 @@ class SearchField extends ConsumerWidget {
         children: [
           AppIcon(
             AppIcons.search,
-            color: AppColors().black,
+            color: theme.iconColor,
           ),
           8.spacing,
           Expanded(
@@ -40,7 +63,7 @@ class SearchField extends ConsumerWidget {
               style: AppStyle().text.largeFont.copyWith(
                     color: theme.labelColor,
                   ),
-              onChanged: (value) => provider.updateQuery(value),
+              onChanged: onChanged,
             ),
           ),
         ],
