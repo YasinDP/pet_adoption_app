@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_adoption_app/implementations/notifier.dart';
+import 'package:pet_adoption_app/theme/theme_manager.dart';
 import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
 import 'package:pet_adoption_app/models.dart';
 
@@ -65,6 +66,7 @@ class _PetsListViewState extends ConsumerState<PetsListView> {
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(appProvider);
+    final theme = ref.watch(themeProvider);
     List<Pet> pets = provider.paginatedPets;
     return Column(
       children: [
@@ -72,7 +74,9 @@ class _PetsListViewState extends ConsumerState<PetsListView> {
           alignment: Alignment.centerRight,
           child: Text(
             "Showing ${pets.length} of ${provider.availablePets} Pets",
-            style: AppStyle().text.smallLabelBold,
+            style: AppStyle().text.smallBold.copyWith(
+                  color: theme.labelColor,
+                ),
           ),
         ),
         16.spacing,
@@ -90,7 +94,9 @@ class _PetsListViewState extends ConsumerState<PetsListView> {
                           child: Text(
                             "No pets are available with selected filters. Pls try with a different category or search query.",
                             textAlign: TextAlign.center,
-                            style: AppStyle().text.labelFont,
+                            style: AppStyle().text.largeFont.copyWith(
+                                  color: theme.labelColor,
+                                ),
                           ),
                         ),
                       ],

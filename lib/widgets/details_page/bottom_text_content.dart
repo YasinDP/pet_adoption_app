@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:pet_adoption_app/implementations/notifier.dart';
+import 'package:pet_adoption_app/theme/theme_manager.dart';
 import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
 import 'package:pet_adoption_app/utils/ui_utils/buttons.dart';
 import 'package:pet_adoption_app/utils/ui_utils/colors.dart';
@@ -32,6 +33,7 @@ class BottomTextContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(appProvider);
+    final theme = ref.watch(themeProvider);
     bool isAdopted = provider.isAdopted(pet.id);
     return Container(
       width: AppStyle().sizes.maxContentWidth2,
@@ -66,7 +68,7 @@ class BottomTextContent extends ConsumerWidget {
                               pet.name,
                               overflow: TextOverflow.ellipsis,
                               style: AppStyle().text.h2.copyWith(
-                                  color: AppColors().black,
+                                  color: theme.iconColor,
                                   height: 1.2,
                                   fontSize: 32),
                               textAlign: TextAlign.center,
@@ -86,7 +88,7 @@ class BottomTextContent extends ConsumerWidget {
                             pet.price.formattedRupeeString,
                             style: AppStyle().text.h2.copyWith(
                                   fontWeight: FontWeight.w500,
-                                  color: AppColors().body,
+                                  color: theme.iconColor,
                                 ),
                             textAlign: TextAlign.center,
                           ),

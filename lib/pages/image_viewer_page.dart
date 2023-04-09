@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_adoption_app/utils/helper_utils/app_haptics.dart';
+import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
 import 'package:pet_adoption_app/utils/ui_utils/colors.dart';
 import 'package:pet_adoption_app/widgets/common/app_header.dart';
 import 'package:pet_adoption_app/widgets/common/app_image.dart';
@@ -56,13 +57,17 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
       child: ExcludeSemantics(child: content),
     );
 
-    return Container(
-      color: AppColors().black,
-      child: Stack(
-        children: [
-          Positioned.fill(child: content),
-          AppHeader(onBack: _handleBackPressed, isTransparent: true),
-        ],
+    return Scaffold(
+      body: SizedBox(
+        height: context.heightPx,
+        width: context.widthPx,
+        // color: AppColors().black,
+        child: Stack(
+          children: [
+            Positioned.fill(child: content),
+            AppHeader(onBack: _handleBackPressed, isTransparent: true),
+          ],
+        ),
       ),
     );
   }

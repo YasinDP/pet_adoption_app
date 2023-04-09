@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:pet_adoption_app/implementations/notifier.dart';
+import 'package:pet_adoption_app/theme/theme_manager.dart';
 import 'package:pet_adoption_app/utils/ui_utils/colors.dart';
 import 'package:pet_adoption_app/utils/ui_utils/styles.dart';
 import 'package:pet_adoption_app/widgets/common/app_header.dart';
@@ -23,20 +24,22 @@ class _TimelineScreenState extends ConsumerState<TimelineScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = ref.read(appProvider);
+    final theme = ref.watch(themeProvider);
     return LayoutBuilder(builder: (_, constraints) {
       const double minSize = 1200;
       const double maxSize = 5500;
       return Container(
-        color: AppColors().black,
+        color: theme.bgColor,
         child: Column(
           children: [
             AppHeader(
               title: "Adoption History",
+              isTransparent: !theme.isDark,
               trailing: (context) => InkWell(
                 onTap: () => provider.clearData(),
                 child: Icon(
                   Icons.restore,
-                  color: AppColors().offWhite,
+                  color: theme.iconColor,
                 ),
               ),
             ),

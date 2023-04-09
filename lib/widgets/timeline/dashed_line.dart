@@ -1,27 +1,41 @@
 import 'package:flutter/material.dart';
 
 class DashedLine extends StatelessWidget {
-  const DashedLine({Key? key, this.vertical = false}) : super(key: key);
+  const DashedLine({
+    Key? key,
+    this.vertical = false,
+    this.color,
+  }) : super(key: key);
   final bool vertical;
+
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: vertical ? 2 : double.infinity,
       height: vertical ? double.infinity : 2,
-      child: CustomPaint(painter: _DashedLinePainter(vertical)),
+      child: CustomPaint(
+          painter: _DashedLinePainter(
+        vertical,
+        color: color,
+      )),
     );
   }
 }
 
 class _DashedLinePainter extends CustomPainter {
-  _DashedLinePainter(this.vertical);
+  _DashedLinePainter(
+    this.vertical, {
+    required this.color,
+  });
   final bool vertical;
+  final Color? color;
 
   @override
   void paint(Canvas canvas, Size size) {
     double dashPx = 3, gapPx = 3, pos = 0;
-    final paint = Paint()..color = Colors.white;
+    final paint = Paint()..color = color ?? Colors.white;
     if (vertical) {
       while (pos < size.height) {
         canvas.drawLine(Offset(0, pos), Offset(0, pos + dashPx), paint);

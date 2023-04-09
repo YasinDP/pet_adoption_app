@@ -92,7 +92,7 @@ class AppText {
       sizePx: 14, weight: FontWeight.w500, spacingPc: 2, heightPx: 14);
   // Labels
 
-  late final TextStyle smallLabelBold = _createFont(
+  late final TextStyle smallBold = _createFont(
     sizePx: 14,
     weight: FontWeight.w500,
     fontColor: AppColors().body,
@@ -103,7 +103,7 @@ class AppText {
     weight: FontWeight.w500,
     fontColor: AppColors().white,
   );
-  late final TextStyle labelFont = _createFont(
+  late final TextStyle largeFont = _createFont(
     sizePx: 16,
     fontColor: AppColors().body,
   );
@@ -172,6 +172,9 @@ class AppShadows {
         color: Colors.black.withOpacity(.6),
         offset: const Offset(0, 2),
         blurRadius: 2),
+  ];
+  final whiteText = [
+    const Shadow(color: Colors.white, offset: Offset(0, 2), blurRadius: 2),
   ];
   final textStrong = [
     Shadow(

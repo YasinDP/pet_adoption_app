@@ -129,6 +129,4 @@ class AppNotifier with ChangeNotifier {
     List<Pet> adoptedPets = AdoptionImplementation.getAdoptedPetsInMonth(month);
     return adoptedPets;
   }
-
-  void valueUpdate() => notifyListeners();
 }

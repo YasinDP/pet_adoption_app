@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_adoption_app/models.dart';
+import 'package:pet_adoption_app/theme/theme_manager.dart';
 
 import 'package:pet_adoption_app/utils/ui_utils/styles.dart';
 
-class TimelineSection extends StatelessWidget {
+class TimelineSection extends ConsumerWidget {
   const TimelineSection(
     this.pet, {
     Key? key,
@@ -11,7 +13,8 @@ class TimelineSection extends StatelessWidget {
   final Pet pet;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ref.watch(themeProvider);
     return Semantics(
       label: pet.name,
       child: IgnorePointer(
@@ -20,12 +23,11 @@ class TimelineSection extends StatelessWidget {
           // alignment: Alignment(0, -1 + fraction * 2),
           padding: EdgeInsets.all(AppStyle().insets.xs),
           decoration: BoxDecoration(
-              color: const Color(0xFFE2CFBB),
-              borderRadius: BorderRadius.circular(98)),
+              color: theme.fgColor, borderRadius: BorderRadius.circular(98)),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(99),
             child: Opacity(
-              opacity: 0.6,
+              opacity: 0.8,
               child: _buildWonderImage(),
             ),
           ),

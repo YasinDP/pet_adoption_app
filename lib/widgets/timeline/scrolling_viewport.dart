@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_adoption_app/implementations/notifier.dart';
+import 'package:pet_adoption_app/theme/theme_manager.dart';
 import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
 
 import 'package:pet_adoption_app/implementations/adoption_impl.dart';
@@ -79,6 +80,7 @@ class NewScalingViewportState extends ConsumerState<NewScrollingViewport> {
 
   Widget _buildScrollingArea(BuildContext context) {
     final provider = ref.watch(appProvider);
+    final theme = ref.watch(themeProvider);
     List<TimelineEvent> timelineData = TimelineEvent.all;
     final gap = AppStyle().insets.xs;
 
@@ -116,7 +118,7 @@ class NewScalingViewportState extends ConsumerState<NewScrollingViewport> {
                           Text(
                             e.value.month.monthAndYear,
                             style: AppStyle().text.body.copyWith(
-                                  color: Colors.white,
+                                  // color: Colors.white,
                                   height: 1,
                                 ),
                           ),
@@ -145,10 +147,15 @@ class NewScalingViewportState extends ConsumerState<NewScrollingViewport> {
               ),
             ),
 
-            /// Top and bottom gradients for visual style
-            const ListOverscollGradient(),
-            const BottomCenter(
-              child: ListOverscollGradient(bottomUp: true),
+            // / Top and bottom gradients for visual style
+            ListOverscollGradient(
+              color: theme.bgColor,
+            ),
+            BottomCenter(
+              child: ListOverscollGradient(
+                bottomUp: true,
+                color: theme.bgColor,
+              ),
             ),
           ],
         );

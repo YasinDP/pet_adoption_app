@@ -66,7 +66,7 @@ class AppHeader extends StatelessWidget {
                             textHeightBehavior: const TextHeightBehavior(
                                 applyHeightToFirstAscent: false),
                             style: AppStyle().text.h4.copyWith(
-                                color: AppColors().offWhite,
+                                // color: AppColors().offWhite,
                                 fontWeight: FontWeight.w500),
                           ),
                         if (subtitle != null)

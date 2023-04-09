@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_adoption_app/implementations/notifier.dart';
+import 'package:pet_adoption_app/theme/theme_manager.dart';
 import 'package:pet_adoption_app/utils/ui_utils/app_icons.dart';
 import 'package:pet_adoption_app/utils/ui_utils/colors.dart';
 import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
@@ -14,6 +15,7 @@ class SearchField extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.read(appProvider);
+    final theme = ref.watch(themeProvider);
     return Container(
       width: context.widthPx,
       padding: [4, 8].edgeInsets,
@@ -35,7 +37,9 @@ class SearchField extends ConsumerWidget {
                 border: InputBorder.none,
                 hintText: "Search",
               ),
-              style: AppStyle().text.labelFont,
+              style: AppStyle().text.largeFont.copyWith(
+                    color: theme.labelColor,
+                  ),
               onChanged: (value) => provider.updateQuery(value),
             ),
           ),

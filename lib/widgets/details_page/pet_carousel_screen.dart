@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pet_adoption_app/implementations/notifier.dart';
+import 'package:pet_adoption_app/theme/theme_manager.dart';
 import 'package:pet_adoption_app/utils/helper_utils/app_haptics.dart';
 import 'package:pet_adoption_app/utils/ui_utils/colors.dart';
 import 'package:pet_adoption_app/utils/helper_utils/extensions.dart';
@@ -41,6 +42,7 @@ class PetDetailScreenState extends ConsumerState<PetCarouselScreen> {
   int get _wrappedPageIndex => currentPage.value.round() % images.length;
 
   OverflowBox _buildBgCircle(double height) {
+    final theme = ref.watch(themeProvider);
     const double size = 2000;
     return OverflowBox(
       maxWidth: size,
@@ -49,7 +51,7 @@ class PetDetailScreenState extends ConsumerState<PetCarouselScreen> {
         offset: const Offset(0, size / 2),
         child: Container(
           decoration: BoxDecoration(
-            color: AppColors().offWhite.withOpacity(0.8),
+            color: theme.bgColor,
             borderRadius:
                 const BorderRadius.vertical(top: Radius.circular(size)),
           ),
