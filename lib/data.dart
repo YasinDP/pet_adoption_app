@@ -149,6 +149,18 @@ List<Pet> _pets = [
     price: 1299,
     categoryId: "parrots",
   ),
+  Pet(
+    name: 'Macaw Parrot',
+    id: 'macaw',
+    images: [
+      'https://i.imgur.com/htHsyIn.png',
+      'https://i.imgur.com/TAG535p.png',
+      'https://i.imgur.com/NLn27aw.png',
+    ],
+    age: '7 months',
+    price: 3299,
+    categoryId: "parrots",
+  ),
 ];
 
 // Timelines
